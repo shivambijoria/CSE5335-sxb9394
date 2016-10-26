@@ -18,4 +18,4 @@ if any, and if so, what is their purpose for your solution?
 No,other components was needed to install separately other than modules like express which were mentioned in the package.json.
 These modules were installed by executing command-npm install.
 f. What Ubuntu commands are required to deploy and run your server? 
-Node server.js
+Node server.js .
