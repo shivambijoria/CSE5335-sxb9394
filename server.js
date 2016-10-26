@@ -7,6 +7,8 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var path = require('path');
 
 app.use(function(req, res, next) 
 { 
@@ -74,6 +76,10 @@ router.get('/chart', function(req, res) {
 	);   
 });
 
+router.get('/', function(req, res) {
+	res.sendfile(path.join(__dirname + '/index.html'));
+	
+});
 
 router.get('/map', function(req, res) {
     res.json(
@@ -111,6 +117,8 @@ router.get('/html', function(req, res) {
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
+
+
 app.use('/', router);
 
 // START THE SERVER

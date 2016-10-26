@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+</style>
+<head>
+<h1>COUNTRIES AND THEIR POPULATION </h1>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5Vhwvm7xgwBZUb1VnZg2iuy0HzvwRpOY">
+    </script>
+<script>
+
+function loadhtmlpage() {
+$.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/html',
+      crossDomain: true,
+      data: {},
+      cache: false,
+      success: function(data) {
+
+      
+    document.getElementById("id01").innerHTML = data;
+}
+    });
+ }
+ 
+
+function getdataanddisplay() {
+        
+		
+
+$.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/api',
+      crossDomain: true,
+      data: {},
+      cache: false,
+      success: function(data) {
+
+      console.log(data);  
+		var i;
+    var out = "<table>";
+
+    for(i = 0; i < data.length; i++) {
+        out += "<tr><td>" + 
+        data[i].Country +
+        "</td><td>" +
+        data[i].Population +
+        "</td><td>" ;
+    }
+    out += "</table>";
+    document.getElementById("id02").innerHTML = out;
+	
+	
+    var out2 = '<ul style="list-style-type:square">';
+
+    for(i = 0; i < data.length; i++) {
+        out2 += "<li>" + 
+        data[i].Country + '-' + data[i].Population
+        "</li>" ;
+    }
+    out2 += "</ul>";
+    document.getElementById("id03").innerHTML = out2;
+		
+		
+	  }
+    });
+	}
+ 
+
+function getchartdata() {
+
+
+$.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/chart',
+      crossDomain: true,
+      data: {},
+      cache: false,
+      success: function(data) {
+
+      
+		store=data;
+		console.log(2);
+		console.log(store)
+	
+	  }
+    });
+
+}
+
+function displaychart(){	
+	
+	console.log(store);
+	//console.log(text);
+	
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var labelArc = d3.svg.arc()
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { console.log(d); return d.Population; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+
+  console.log(3);
+  console.log(store)
+
+  var g = svg.selectAll(".arc")
+      .data(pie(store))
+    .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data.Country); });
+
+  g.append("text")
+      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .text(function(d) { return d.data.Country; });
+
+
+	
+	
+	}
+	
+	
+	
+
+function getmapdata() {
+
+
+$.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/map',
+      crossDomain: true,
+      data: {},
+      cache: false,
+      success: function(data) {
+	  
+	  
+	  
+	
+		lat1=data.location[0].lat;
+		lat2=data.location[1].lat;
+		lat3=data.location[2].lat;
+		lat4=data.location[3].lat;
+		lat5=data.location[4].lat;
+		lat6=data.location[5].lat;
+		lat7=data.location[6].lat;
+		lat8=data.location[7].lat;
+		lat9=data.location[8].lat;
+		lat10=data.location[9].lat;
+		
+		lng1=data.location[0].lng;
+		lng2=data.location[1].lng;
+		lng3=data.location[2].lng;
+		lng4=data.location[3].lng;
+		lng5=data.location[4].lng;
+		lng6=data.location[5].lng;
+		lng7=data.location[6].lng;
+		lng8=data.location[7].lng;
+		lng9=data.location[8].lng;
+		lng10=data.location[9].lng;
+		
+		
+		
+		
+	  }
+    });
+
+
+
+}
+
+function displaymap(){
+        var myLatLng = {lat: lat1, lng: lng1};
+		var myLatLng2 = {lat: lat2, lng: lng2};
+		var myLatLng3 = {lat: lat3, lng: lng3};
+		var myLatLng4 = {lat: lat4, lng: lng4};
+		var myLatLng5 = {lat: lat5, lng: lng5};
+		var myLatLng6 = {lat: lat6, lng: lng6};
+		var myLatLng7 = {lat: lat7, lng: lng7};
+		var myLatLng8 = {lat: lat8, lng: lng8};
+		var myLatLng9 = {lat: lat9, lng: lng9};
+		var myLatLng10 = {lat: lat10, lng: lng10};
+		
+		
+
+		
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng2,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng3,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng4,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng5,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng6,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng7,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng8,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng9,
+          map: map,
+          title: 'Hello World!'
+        });
+		
+		var marker = new google.maps.Marker({
+          position: myLatLng10,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+   
+
+</script>
+</head>
+<body>
+
+<button onclick="loadhtmlpage()">Send an HTTP GET request to Load the html page</button>
+<div id="id01"></div>
+<div id="id02"></div>
+<div id="id03"></div>
+<div id="map"></div>
+</body>
+</html>
