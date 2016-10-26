@@ -1,4 +1,4 @@
-a.## What server framework did you choose and why? 
+a. What server framework did you choose and why? 
 >>####I chose Nodejs,because it is fast:it uses v8 engine which compiles and executes javascript
 extremely fast, npm allows easy management of modules,and
 as i am already familiar with javascript.Hosting is easy,as well heroku supports
@@ -16,7 +16,15 @@ d.##What aspect of the implementation did you find hard, if any, and why?
 e.##What components OTHER than your client and server framework did you install, 
 >>####if any, and if so, what is their purpose for your solution? 
 No,other components was needed to install separately other than modules like express which were mentioned in the package.json.
-These modules were installed by executing command-npm install.
+These modules were installed by executing command-npm install.But generally all the required packages like express are read from package.json and installed automatically 
 
 f.## What Ubuntu commands are required to deploy and run your server? 
->>####Node server.js
+>>####Commands to deploy on github
+git init
+git add .
+git commit -m "message while commiting"
+git remote add origin https://github.com/shivambijoria/CSE5335-sxb9394/git
+git push origin master
+
+Then connect the github-repository to heroku app. and then deploy it and open the following url:
+https://cse5335-sxb9394.herokuapp.com/
